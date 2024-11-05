@@ -1,11 +1,12 @@
-import jsonwebtoken from "jsonwebtoken";
+// import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const jwt = jsonwebtoken;
+// const jwt = jsonwebtoken;
 
-const create_jw_token = (id) => {
+const create_jw_token = (userId) => {
   return jwt.sign(
     { id }, 
     process.env.TOKEN_KEY, 
@@ -13,28 +14,34 @@ const create_jw_token = (id) => {
   );
 };
 
-const create_jw_access_token = (id, expiringTime) => {
+const create_jw_access_token = (userId, expiringTime) => {
   return jwt.sign(
-    { id }, 
+    { id: userId }, 
     process.env.ACCESS_TOKEN_SECRETEKEY, 
     {expiresIn: expiringTime}
   );
 };
 
-const create_jw_refresh_token = (id, expiringTime) => {
+const create_jw_refresh_token = (userId, expiringTime) => {
   return jwt.sign(
-    { id }, 
+    { id: userId }, 
     process.env.REFRESH_TOKEN_SECRETEKEY, 
     {expiresIn: expiringTime}
   );
 };
 
-const verify_jwt_refreshtoken = (token,) =>{
-
+const verify_jwt_refreshtoken = (token) =>{
+  return jwt.verify(
+    token,
+    process.env.REFRESH_TOKEN_SECRETEKEY
+  );
 }
 
-const verify_jwt_accesstoken = (token,) =>{
-
+const verify_jwt_accesstoken = (token) =>{
+  return jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRETEKEY
+  );
 }
 
 export {
