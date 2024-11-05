@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {getRoles, createRole} from './userController.js'
+import {getRoles, createRole} from './roleController.js'
 
 const router = Router();
 

@@ -38,6 +38,17 @@ const UserSchema = new mongoose.Schema({
         ref: 'Role',
         // default: 'user'
      },
+     refreshToken: {
+        type: String, // For single refresh token per user, use String
+        default: null,
+    },
+    // Uncomment below to allow multiple refresh tokens (e.g., for multiple devices):
+    // refreshTokens: [
+    //     {
+    //         token: String,
+    //         issuedAt: { type: Date, default: Date.now },
+    //     }
+    // ]
 });
 
 UserSchema.pre("save", async function () {
