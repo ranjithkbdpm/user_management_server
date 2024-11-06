@@ -53,24 +53,25 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre("save", async function () {
 
-    if (this.isModified('role')) {
-        // Role provided during user creation
-        const existingRole = await Role.findById(this.role);
-        if (!existingRole) {
-            // If the provided role does not exist, create it
-            const createdRole = await Role.create({ role: this.role });
-            this.role = createdRole._id;
-        }
-    } else {
-        // No role provided, set default role
-        const defaultRole = await Role.findOne({ role: 'user' });
-        if (!defaultRole) {
-            const createdRole = await Role.create({ role: 'user' });
-            this.role = createdRole._id;
-        } else {
-            this.role = defaultRole._id;
-        }
-    }
+    // role is handled in controller function no need of it here
+    // if (this.isModified('role')) {
+    //     // Role provided during user creation
+    //     const existingRole = await Role.findById(this.role);
+    //     if (!existingRole) {
+    //         // If the provided role does not exist, create it
+    //         const createdRole = await Role.create({ role: this.role });
+    //         this.role = createdRole._id;
+    //     }
+    // } else {
+    //     // No role provided, set default role
+    //     const defaultRole = await Role.findOne({ role: 'user' });
+    //     if (!defaultRole) {
+    //         const createdRole = await Role.create({ role: 'user' });
+    //         this.role = createdRole._id;
+    //     } else {
+    //         this.role = defaultRole._id;
+    //     }
+    // }
 
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 12);

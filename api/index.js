@@ -15,7 +15,7 @@ router.use('/auth', auth);
 // Middleware that checks the jwt token from request 
 router.use(verifyJWTAccess);
 
-router.use('/', (req, res)=>{ res.send('working')});
+router.use('/check-access', (req, res)=>{ res.send('Middleware successfully verifies the accesstoken before sending the resource requested for a specific route by the client. the request is made with header file with authorisation and  Bearer accesstoken')});
 
 // Define Protected route here.These routes are verified with jwt access token.
 router.use('/users', users);
