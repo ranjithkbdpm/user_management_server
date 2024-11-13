@@ -5,7 +5,7 @@ import { verify_jwt_refreshtoken, create_jw_access_token } from "../../utilities
 
 const handleRefreshToken = async(req, res)=>{
     const cookies = req.cookies;
-    console.log('cookies',cookies);
+    // console.log('cookies',cookies);
     if(!cookies?.refresh_token) 
         return res.status(401).json({ success: false, message: 'Unauthorised : Cookie is missing'});
 
@@ -13,7 +13,7 @@ const handleRefreshToken = async(req, res)=>{
     // console.log('refresh_token from cookies:',refreshToken);
 
     const user = await User.findOne({ refreshToken });
-    console.log('user',user)
+    // console.log('user',user)
     
     if(!user) return res.status(403).json({ success: false, message: 'Forbidden: No refresh token provided cannot access further'});
 

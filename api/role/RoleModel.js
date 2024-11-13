@@ -12,7 +12,10 @@ const RoleSchema = new mongoose.Schema({
         type: String,
         default: "Active",
         enum: ["Active", "InActive"]
-      },
+    },
+    access: {
+        type: Array,
+    }
     // permissions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Permission' }],
 });
 
